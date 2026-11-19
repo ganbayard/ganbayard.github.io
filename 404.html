@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>404 · ganbayard</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#07090a">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&amp;display=swap">
+<link rel="stylesheet" href="/assets/css/style.css">
+<style>
+  body { padding-bottom: 0; }
+  .lost { min-height: 100vh; min-height: 100svh; display: flex; align-items: center; }
+  .lost .pane { max-width: 720px; }
+  .lost .term__out { max-height: none; }
+  .lost .glitch { font-size: clamp(3.4rem, 18vw, 8rem); margin-bottom: 24px; }
+</style>
+</head>
+<body>
+<div class="crt" aria-hidden="true"></div>
+<main class="lost">
+  <div class="wrap">
+    <h1 class="glitch" data-text="404">404</h1>
+    <div class="pane">
+      <div class="pane__bar" aria-hidden="true"><span class="lights"><i></i><i></i><i></i></span><span class="pane__title">ganbayard@quantlabs: ~ — zsh</span></div>
+      <div class="term">
+        <div class="term__out">
+          <p><span class="ps1">ganbayard@quantlabs:~$</span> cd <span id="path">this-page</span></p>
+          <p class="err">cd: no such file or directory</p>
+          <p class="dim">the page you were looking for was moved, deleted, or never existed.</p>
+          <p><span class="ps1">ganbayard@quantlabs:~$</span> <a href="/">cd ~</a> <span class="dim"># back to home</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script>
+  var p = document.getElementById('path');
+  if (p) p.textContent = decodeURIComponent(location.pathname).replace(/^\//, '') || 'this-page';
+</script>
+</body>
+</html>
