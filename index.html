@@ -75,10 +75,10 @@
             <li><span class="role">R&amp;D Staff Engineer</span><time>Mar 2025 – Present</time></li>
           </ul>
           <ul class="pts">
-            <li>Leading R&amp;D for quant research and systematic trading: market data pipelines, research infrastructure, and the platform underneath.</li>
-            <li>Document AI for financial filings: layout analysis, OCR and table extraction turning statements into validated data.</li>
+            <li>Building <a href="https://quantlabs.us" rel="noopener">quantlabs.us</a>, an AI research desk for equities: autonomous agents read SEC filings, fundamentals and insider trades and turn them into verified recommendations.</li>
+            <li>Leading R&amp;D for quant research and systematic trading: a Rust indicator engine, multi-timeframe backtesting and real-time market data pipelines.</li>
           </ul>
-          <ul class="tags"><li>quant research</li><li>systematic trading</li><li>document AI</li><li>data pipelines</li></ul>
+          <ul class="tags"><li>quant research</li><li>systematic trading</li><li>AI agents</li><li>market data</li><li>US equities</li></ul>
         </li>
 
         <li class="job">
@@ -144,22 +144,28 @@
   <section class="section" id="projects" data-win>
     <div class="wrap">
       <h2 class="sh"><span class="ps1" aria-hidden="true">~$</span> <span class="cmd" aria-hidden="true">ls -la ./projects</span><span class="sr">Projects</span></h2>
-      <p class="sub"># selected work · total 6</p>
+      <p class="sub"># selected work · total 5</p>
 
       <div class="grid reveal">
-        <article class="card">
-          <p class="card__perm"><span>drwxr-xr-x</span><span>2025</span></p>
-          <h3>financial-document-ai</h3>
-          <p>Layout detection, OCR and table extraction that turn scanned financial statements and exchange filings into structured, validated data. Kafka-driven processing.</p>
-          <ul class="tags"><li>PyTorch</li><li>Detectron2</li><li>YOLO</li><li>OpenCV</li><li>Kafka</li></ul>
-          <p class="ctx">@ QuantLabs</p>
+        <article class="card card--feat">
+          <p class="card__perm"><span>drwxr-xr-x</span><span>2025 · live</span></p>
+          <h3><a class="card__link" href="https://quantlabs.us" rel="noopener">quantlabs.us</a></h3>
+          <p>Data- and AI-driven market intelligence: an AI research desk that never sleeps. Autonomous agents read SEC filings, peer fundamentals and insider trades, and turn them into verified equity recommendations for individual investors and institutions.</p>
+          <ul class="feat">
+            <li>8,000+ US stocks scored nightly, with a fundamentals lens and sector-aware scoring</li>
+            <li>Valuation map, market regime monitor, sector rotation, seasonality and heatmaps</li>
+            <li>Insider trading (Form 4) and 13F institutional tracking, ETF holders and financials</li>
+            <li>Q Pilot, an AI analyst that grades setups on valuation, profitability, health and growth</li>
+          </ul>
+          <ul class="tags"><li>AI agents</li><li>US equities</li><li>SEC filings</li><li>data lakehouse</li><li>distributed systems</li><li>deep learning</li></ul>
+          <p class="ctx">@ QuantLabs · <a href="https://quantlabs.us" rel="noopener">quantlabs.us ↗</a></p>
         </article>
 
         <article class="card">
           <p class="card__perm"><span>drwxr-xr-x</span><span>2025</span></p>
           <h3>systematic-trading-research</h3>
-          <p>Research tooling for systematic strategies: point-in-time backtesting, correctness checks and pre-registered tests that guard against overfitting. MQL5 for execution.</p>
-          <ul class="tags"><li>Python</li><li>MQL5</li><li>statistics</li></ul>
+          <p>A multi-timeframe, multi-asset strategy platform. Indicators are written in Rust and compiled to WASM and Node. It includes backtesting with Sharpe, Sortino and max-drawdown metrics, walk-forward validation, bar-by-bar replay, and live Binance and cTrader feeds.</p>
+          <ul class="tags"><li>Rust</li><li>TA-Lib</li><li>WASM</li><li>Python</li><li>Polars</li><li>statistics</li><li>quant math</li><li>time series</li><li>cTrader</li><li>MQL5</li><li>Redpanda</li><li>TimescaleDB</li></ul>
           <p class="ctx">@ QuantLabs</p>
         </article>
 
@@ -181,17 +187,9 @@
 
         <article class="card">
           <p class="card__perm"><span>drwxr-xr-x</span><span>2021</span></p>
-          <h3>secured-enterprise-datalake</h3>
-          <p>Cloudera Private Cloud on bare metal and VMs for enterprise customers: Kerberos- and TLS-secured Hadoop with 15+ managed services.</p>
-          <ul class="tags"><li>Cloudera</li><li>Hadoop</li><li>Kerberos</li><li>TLS/SSL</li><li>Atlas</li></ul>
-          <p class="ctx">@ Novelsoft</p>
-        </article>
-
-        <article class="card">
-          <p class="card__perm"><span>drwxr-xr-x</span><span>2021</span></p>
-          <h3>warehouse-migration-1000-tables</h3>
-          <p>Moved core Oracle and PostgreSQL systems (1,000+ tables) into Kudu and Hive, then designed the warehouse and data marts on top.</p>
-          <ul class="tags"><li>Talend</li><li>Sqoop</li><li>Kudu</li><li>Hive</li><li>Parquet</li></ul>
+          <h3>enterprise-data-lake</h3>
+          <p>Cloudera Private Cloud on bare metal and VMs for enterprise customers: Kerberos- and TLS-secured Hadoop with 15+ managed services. Migrated core Oracle and PostgreSQL systems (1,000+ tables) into Kudu and Hive, then designed the warehouse and data marts on top.</p>
+          <ul class="tags"><li>Cloudera</li><li>Hadoop</li><li>Kerberos</li><li>TLS/SSL</li><li>Kudu</li><li>Hive</li><li>Talend</li><li>Sqoop</li></ul>
           <p class="ctx">@ Novelsoft</p>
         </article>
       </div>
@@ -210,13 +208,14 @@
           <p class="tree__root">skills/</p>
           <ul>
             <li><span class="br">programming/</span><span class="lvs"><span>Rust</span><span>TypeScript</span><span>Go</span><span>Python</span><span>SQL</span><span>Bash</span><span>HCL</span><span>MQL5</span></span></li>
+            <li><span class="br">quant/</span><span class="lvs"><span>TA-Lib</span><span>Polars</span><span>NumPy</span><span>backtesting</span><span>walk-forward validation</span><span>risk metrics</span><span>time-series statistics</span><span>cTrader</span><span>MetaTrader 5</span></span></li>
             <li><span class="br">ml/</span><span class="lvs"><span>PyTorch</span><span>TensorFlow</span><span>Transformers</span><span>OpenCV</span><span>Detectron2</span><span>YOLO</span><span>MLflow</span><span>Kubeflow</span><span>DVC</span></span></li>
             <li><span class="br">agents/</span><span class="lvs"><span>Claude</span><span>MCP</span><span>Ollama</span><span>GitHub Copilot</span></span></li>
             <li><span class="br">platform/</span><span class="lvs"><span>Kubernetes</span><span>Helm</span><span>Kustomize</span><span>Argo</span><span>Flux</span><span>Tekton</span><span>Istio</span><span>Docker</span><span>Terraform</span><span>Ansible</span></span></li>
             <li><span class="br">data/</span><span class="lvs"><span>Kafka</span><span>Flink</span><span>Spark</span><span>Airflow</span><span>Apache Iceberg</span><span>Delta Lake</span><span>MinIO</span><span>Hive</span><span>Kudu</span><span>Cloudera</span><span>PostgreSQL</span><span>Talend</span></span></li>
             <li><span class="br">ops-security/</span><span class="lvs"><span>Prometheus</span><span>Grafana</span><span>Kerberos</span><span>TLS/SSL</span><span>Linux</span></span></li>
           </ul>
-          <p class="tree__sum" id="tree-sum">6 directories, 48 files</p>
+          <p class="tree__sum" id="tree-sum">7 directories, 57 files</p>
         </div>
       </div>
     </div>
