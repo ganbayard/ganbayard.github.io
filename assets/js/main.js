@@ -1,4 +1,4 @@
-/* ganbayard.github.io — boot sequence, interactive shell, matrix rain, section reveal */
+/* ganbayard.github.io — boot sequence, interactive shell, formula rain, section reveal */
 (() => {
   'use strict';
 
@@ -284,40 +284,120 @@
     heads.forEach((el) => { el.textContent = el.dataset.full; });
   }
 
-  /* ── matrix rain (hero only) ─────────────────── */
+  /* ── formula rain (hero only) ─────────────────
+     Each column writes a real formula top to bottom, one character per
+     step and in reading order: quant finance, AI/ML and classic math.
+     The trail is redrawn from state each frame, so it fades cleanly. */
   const canvas = $('#rain');
   if (canvas && !reduce && canvas.getContext) {
     const ctx = canvas.getContext('2d');
-    const glyphs = '01ABCDEF0123456789ГАНБАЯРДӨҮЖЭ<>/{}[]$#*';
-    const fs = 16;
-    let w = 0, h = 0, cols = 0, drops = [], last = 0, raf = 0, visible = true;
+    const FORMULAS = [
+      // quant finance
+      'Sharpe=(Rp−Rf)/σp',
+      'Sortino=(R−T)/σd',
+      'E[Ri]=Rf+β(Rm−Rf)',
+      'β=Cov(Ri,Rm)/Var(Rm)',
+      'dS=μSdt+σSdW',
+      'dX=θ(μ−X)dt+σdW',
+      'C=S·N(d₁)−Ke^−rT·N(d₂)',
+      'd₁=[ln(S/K)+(r+σ²/2)T]/σ√T',
+      'Δ=∂V/∂S',
+      'Γ=∂²V/∂S²',
+      'σp²=wᵀΣw',
+      'σ²t=ω+αε²+βσ²',
+      'r=ln(Pt/Pt−1)',
+      'VaR=μ−zσ',
+      'f*=(bp−q)/b',
+      'z=(x−μ)/σ',
+      'EMA=αx+(1−α)EMA',
+      'MDD=max(peak−trough)/peak',
+      // AI / ML
+      'Attention=softmax(QKᵀ/√d)V',
+      'softmax(z)=e^z/Σe^z',
+      'θ←θ−η∇L(θ)',
+      'L=−Σy·log(ŷ)',
+      'σ(x)=1/(1+e^−x)',
+      'ReLU(x)=max(0,x)',
+      'y=Wx+b',
+      'P(A|B)=P(B|A)P(A)/P(B)',
+      'H=−Σp·log(p)',
+      'KL(P‖Q)=Σp·log(p/q)',
+      'm=β₁m+(1−β₁)g',
+      'Q(s,a)←r+γ·maxQ(s′,a′)',
+      'IoU=|A∩B|/|A∪B|',
+      'F1=2PR/(P+R)',
+      // math
+      'e^iπ+1=0',
+      '∫e^−x²dx=√π',
+      'Σ1/n²=π²/6',
+      'Ax=λx',
+      '∂u/∂t=α∇²u',
+    ].map((f) => Array.from(f));
 
+    const FS = 15;        // glyph size, px
+    const COL = 20;       // column pitch, px
+    const TICK = 50;      // ms per frame
+    const TRAIL = 40;     // steps until a character has faded out
+    const rand = (n) => (Math.random() * n) | 0;
+    const pick = () => FORMULAS[rand(FORMULAS.length)];
+    let w = 0, h = 0, rows = 0, cols = [], last = 0, raf = 0, visible = true;
+
+    // A column is a stream: wait, then write formulas downward with short gaps,
+    // and start over from the top once it has left the screen.
+    function stream(x, first) {
+      return {
+        x, f: pick(), i: 0, gap: 0, step: 0, tick: 0, cells: [],
+        y: first ? rand(rows * 0.6) : 0,
+        wait: first ? rand(40) : 10 + rand(70),
+        every: Math.random() < 0.65 ? 1 : 2,
+      };
+    }
     function resize() {
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
       w = canvas.clientWidth; h = canvas.clientHeight;
       canvas.width = Math.floor(w * dpr); canvas.height = Math.floor(h * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      cols = Math.ceil(w / fs);
-      drops = Array.from({ length: cols }, () => Math.floor(Math.random() * -(h / fs)));
-      ctx.fillStyle = '#07090a';
-      ctx.fillRect(0, 0, w, h);
+      rows = Math.ceil(h / FS);
+      cols = Array.from({ length: Math.ceil(w / COL) }, (_, i) => stream(i * COL + COL / 2, true));
+    }
+    function advance(c) {
+      if (c.wait > 0) { c.wait--; return; }
+      if (++c.tick < c.every) return;
+      c.tick = 0;
+      c.step++;
+      if (c.y >= rows) { /* off the bottom: write nothing, let the trail fade */ }
+      else if (c.gap > 0) { c.gap--; c.y++; }
+      else {
+        c.cells.push({ ch: c.f[c.i], row: c.y, step: c.step });
+        c.y++;
+        if (++c.i === c.f.length) { c.f = pick(); c.i = 0; c.gap = 2 + rand(4); }
+      }
+      c.cells = c.cells.filter((cell) => c.step - cell.step < TRAIL);
+      if (c.y >= rows && !c.cells.length) Object.assign(c, stream(c.x, false));
     }
     function frame(t) {
       raf = requestAnimationFrame(frame);
-      if (t - last < 60) return;
+      if (t - last < TICK) return;
       last = t;
-      ctx.fillStyle = 'rgba(7, 9, 10, 0.14)';
-      ctx.fillRect(0, 0, w, h);
-      ctx.font = `${fs}px "JetBrains Mono", monospace`;
-      for (let i = 0; i < cols; i++) {
-        const y = drops[i] * fs;
-        if (y > 0) {
-          ctx.fillStyle = Math.random() < 0.035 ? '#e6fff0' : (Math.random() < 0.5 ? '#2fcf7c' : '#1a7a47');
-          ctx.fillText(glyphs[(Math.random() * glyphs.length) | 0], i * fs, y);
+      ctx.clearRect(0, 0, w, h);
+      ctx.font = `${FS}px "JetBrains Mono", monospace`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'top';
+      for (const c of cols) {
+        advance(c);
+        const n = c.cells.length;
+        for (let k = 0; k < n; k++) {
+          const cell = c.cells[k];
+          const age = (c.step - cell.step) / TRAIL;
+          if (k === n - 1 && c.step === cell.step) {
+            ctx.globalAlpha = 1; ctx.fillStyle = '#e6fff0';      // head
+          } else {
+            ctx.globalAlpha = 1 - Math.pow(age, 1.5); ctx.fillStyle = '#2fcf7c';
+          }
+          ctx.fillText(cell.ch, c.x, cell.row * FS);
         }
-        if (y > h && Math.random() > 0.975) drops[i] = 0;
-        drops[i] += 1;
       }
+      ctx.globalAlpha = 1;
     }
     function start() { if (!raf && visible && !document.hidden) raf = requestAnimationFrame(frame); }
     function stop() { cancelAnimationFrame(raf); raf = 0; }

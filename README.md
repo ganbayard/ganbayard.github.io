@@ -8,7 +8,7 @@ Plain HTML, CSS and JavaScript with a terminal theme. There's no build step, no 
 index.html            the page (all content lives here)
 404.html              not-found page
 assets/css/style.css  theme
-assets/js/main.js     boot sequence, interactive shell, matrix rain, section reveal
+assets/js/main.js     boot sequence, interactive shell, formula rain, section reveal
 assets/favicon.svg
 ```
 

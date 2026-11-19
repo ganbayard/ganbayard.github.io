@@ -79,7 +79,7 @@ kbd { font: inherit; color: var(--bg); background: var(--green); padding: 0 6px;
 }
 #rain {
   position: absolute; inset: 0; width: 100%; height: 100%;
-  opacity: .32;
+  opacity: .38;
   -webkit-mask-image: linear-gradient(to bottom, #000 35%, transparent 95%);
           mask-image: linear-gradient(to bottom, #000 35%, transparent 95%);
 }
